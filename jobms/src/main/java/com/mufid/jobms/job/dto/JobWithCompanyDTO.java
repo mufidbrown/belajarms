@@ -9,7 +9,12 @@ import lombok.Setter;
 @Setter
 public class JobWithCompanyDTO {
 
-    private Job job;
+    private Long id;
+    private String title;
+    private String description;
+    private String minSalary;
+    private String maxSalary;
+    private String location;
     private Company company;
 
 }
