@@ -6,6 +6,7 @@ import com.mufid.jobms.job.JobRepository;
 import com.mufid.jobms.job.JobService;
 import com.mufid.jobms.job.dto.JobWithCompanyDTO;
 import com.mufid.jobms.job.external.Company;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +19,9 @@ import java.util.stream.Collectors;
 public class JobServiceImpl implements JobService {
     // private List<Job> jobs = new ArrayList<>();
     JobRepository jobRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     public JobServiceImpl(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
@@ -35,9 +39,9 @@ public class JobServiceImpl implements JobService {
     private JobWithCompanyDTO convertToDto(Job job){
             JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
             jobWithCompanyDTO.setJob(job);
-            RestTemplate restTemplate = new RestTemplate();
+//            RestTemplate restTemplate = new RestTemplate();
             Company company = restTemplate.getForObject(
-                    "http://localhost:8081/companies/" + job.getCompanyId(),
+                    "http://COMPANY-SERVICE:8081/companies/" + job.getCompanyId(),
                     Company.class);
             jobWithCompanyDTO.setCompany(company);
 
